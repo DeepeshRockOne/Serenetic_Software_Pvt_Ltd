@@ -79,9 +79,7 @@
             }
 
             if ($first_name_error == '' && $last_name_error == '' && $gender_error == '' && $email_error == '' && $phone_error == '' && $password_error == '' && $confirm_password_error == '' && $terms_condition_error == '') {
-                $sql = "INSERT INTO registration (first_name, last_name, gender, email, phone, password, terms_condition) VALUES ('".$first_name."', '".$last_name."', '".$gender."', '".$email."', '".$phone."', '".$enc_password."', '".$terms_condition."')";
-
-                //echo "sel " . $sql; exit;
+                $sql = "INSERT INTO registration (first_name, last_name, gender, email, phone, password, terms_condition) VALUES ('".$first_name."', '".$last_name."', '".$gender."', '".$email."', '".$phone."', '".$enc_password."', '".$terms_condition."')";              
 
                 if ($conn->query($sql) === true) {
                     header("location:view_reg_records.php?view_reg_records=true&registration_success=true");
