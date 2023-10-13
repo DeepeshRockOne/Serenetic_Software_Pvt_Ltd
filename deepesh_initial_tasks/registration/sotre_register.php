@@ -20,16 +20,16 @@
 
             if ($first_name == '') {
                 $first_name_error = "First name is required.";
-            } else if (!ctype_alpha($first_name)) {
-                $first_name_error = "First name should be alphabatic.";
+            } else if (!ctype_alnum($first_name)) {
+                $first_name_error = "First name should be alphanumeric.";
             } else {
                 $first_name_error = "";
             }
 
             if ($last_name == '') {
                 $last_name_error = "Last name is required.";
-            } else if (!ctype_alpha($last_name)) {
-                $last_name_error = "Last name should be alphabatic.";
+            } else if (!ctype_alnum($last_name)) {
+                $last_name_error = "Last name should be alphanumeric.";
             } else {
                 $last_name_error = "";
             }
@@ -79,7 +79,7 @@
             }
 
             if ($first_name_error == '' && $last_name_error == '' && $gender_error == '' && $email_error == '' && $phone_error == '' && $password_error == '' && $confirm_password_error == '' && $terms_condition_error == '') {
-                $sql = "INSERT INTO registration (first_name, last_name, gender, email, phone, password, terms_condition) VALUES ('".$first_name."', '".$last_name."', '".$gender."', '".$email."', '".$phone."', '".$enc_password."', '".$terms_condition."')";              
+                $sql = "INSERT INTO registration (first_name, last_name, gender, email, phone, password, terms_condition) VALUES ('".$first_name."', '".$last_name."', '".$gender."', '".$email."', '".$phone."', '".$enc_password."', '".$terms_condition."')";
 
                 if ($conn->query($sql) === true) {
                     header("location:view_reg_records.php?view_reg_records=true&registration_success=true");

@@ -1,11 +1,6 @@
 <?php
 	require_once("header.php");
 	require_once("sotre_register.php");
-
-	/* $fname = isset($first_name) ? $first_name : '';
-	echo $fname."<br/>";
-	$lname = isset($last_name) ? $last_name : '';
-	echo $lname."<br/>"; */
 ?>
 	<div class="container mt-5">
 		<div class="row">
@@ -63,7 +58,7 @@
 					</div>
 					<div class="form-group">
 						<label for="password">Password:</label>
-						<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
+						<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo (isset($password)) ? $password : ''; ?>">
 						<?php if (isset($password_error) && $password_error != '') { ?>
 							<div class="my-4">
 								<span class="alert alert-danger my-2"><?php echo $password_error; ?></span>
