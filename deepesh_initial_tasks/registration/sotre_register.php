@@ -1,7 +1,7 @@
 <?php
     require_once("connection.php");
 
-    $first_name = $last_name = $gender = $email = $phone = $terms_condition = "";
+    $first_name = $last_name = $gender = $email = $phone = $password = $terms_condition = "";
 
     $first_name_error = $last_name_error = $gender_error = $email_error = $phone_error = $password_error = $confirm_password_error = $terms_condition_error = "";
 
