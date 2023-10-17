@@ -12,7 +12,6 @@ if (isset($_REQUEST['edit_id']) && $_REQUEST['edit_id'] != '') {
     $title = "Edit Registred Record";
 
     $template = 'edit_reg_records.inc.php';
-    $layout = 'main.layout.php';
 }
 
 $first_name = $last_name = $gender = $email = $phone = $terms_condition = "";
