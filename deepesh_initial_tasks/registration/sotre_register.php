@@ -66,7 +66,7 @@
 
             if ($confirm_password == '') {
                 $confirm_password_error = "Confirm password is required.";
-            } else if ($password != $confirm_password) {
+            } else if ($password != $confirm_password && $confirm_password != '') {
                 $confirm_password_error = "Password and Confirm password should be same.";
             } else {
                 $confirm_password_error = "";
