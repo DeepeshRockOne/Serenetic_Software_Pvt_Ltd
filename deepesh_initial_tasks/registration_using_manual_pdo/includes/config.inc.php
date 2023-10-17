@@ -4,7 +4,7 @@ $DATABASENAME = "Training3";
 $USERNAME = "traning";
 $PASSWORD = "M4mNlZRa7kV2";
 
-$HOST = "http://".$_SERVER['HTTP_HOST']."/registration_using_pdo";
+$HOST = "http://".$_SERVER['HTTP_HOST']."/registration_using_manual_pdo";
 
 $SITE_ENV = "Local";
 

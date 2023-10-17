@@ -7,18 +7,20 @@
                 <div class="form-group">
                     <label for="first_name">First Name:</label>
                     <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name" value="<?php echo $first_name; ?>">
-                    <?php if (isset($first_name_error) && $first_name_error != '') { ?>
+                    <?php if (isset($validation_errors['first_name'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $first_name_error; ?></span>
+                            <span class="alert alert-danger my-2">
+                                <?php echo $validation_errors['first_name']; ?>
+                            </span>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="last_name">Last Name:</label>
                     <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name" value="<?php echo $last_name; ?>">
-                    <?php if (isset($last_name_error) && $last_name_error != '') { ?>
+                    <?php if (isset($validation_errors['last_name'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $last_name_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['last_name']; ?></span>
                         </div>
                     <?php } ?>
                 </div>
@@ -28,45 +30,47 @@
                         <input type="radio" name="gender" value="Male" <?php echo (isset($gender) && $gender == "Male") ? 'checked=checked' : ''; ?>>Male
                         <input type="radio" name="gender" value="Female" <?php echo (isset($gender) && $gender == "Female") ? 'checked=checked' : ''; ?>>Female
                     </div>
-                    <?php if (isset($gender_error) && $gender_error != '') { ?>
+                    <?php if (isset($validation_errors['gender'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $gender_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['gender']; ?></span>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?php echo (isset($email)) ? $email : ''; ?>">
-                    <?php if (isset($email_error) && $email_error != '') { ?>
+                    <?php if (isset($validation_errors['email'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $email_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['email']; ?></span>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
                     <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number" value="<?php echo (isset($phone)) ? $phone : ''; ?>">
-                    <?php if (isset($phone_error) && $phone_error != '') { ?>
+                    <?php if (isset($validation_errors['phone'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $phone_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['phone']; ?></span>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo (isset($password)) ? $password : ''; ?>">
-                    <?php if (isset($password_error) && $password_error != '') { ?>
+                    <?php if (isset($validation_errors['password'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $password_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['password']; ?></span>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password:</label>
                     <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Enter Confirm Password">
-                    <?php if (isset($confirm_password_error) && $confirm_password_error != '') { ?>
+                    <?php if (isset($validation_errors['confirm_password'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $confirm_password_error; ?></span>
+                            <span class="alert alert-danger my-2">
+                                <?php echo $validation_errors['confirm_password']; ?>
+                            </span>
                         </div>
                     <?php } ?>
                 </div>
@@ -75,9 +79,9 @@
                         <input type="checkbox" name="terms_condition" value="1" id="terms_condition" <?php echo (isset($terms_condition) && $terms_condition == 1) ? 'checked=checked' : ''; ?>>
                         <label for="terms_condition">Terms & condition</label>
                     </div>
-                    <?php if (isset($terms_condition_error) && $terms_condition_error != '') { ?>
+                    <?php if (isset($validation_errors['terms_condition'])) { ?>
                         <div class="my-4">
-                            <span class="alert alert-danger my-2"><?php echo $terms_condition_error; ?></span>
+                            <span class="alert alert-danger my-2"><?php echo $validation_errors['terms_condition']; ?></span>
                         </div>
                     <?php } ?>
                 </div>

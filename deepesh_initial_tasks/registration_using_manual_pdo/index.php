@@ -9,8 +9,6 @@ $layout = 'main.layout.php';
 
 $first_name = $last_name = $gender = $email = $phone = $password = $terms_condition = "";
 
-$first_name_error = $last_name_error = $gender_error = $email_error = $phone_error = $password_error = $confirm_password_error = $terms_condition_error = "";
-
 //registration (insert)
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['reg_submit'])) {
@@ -24,67 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $confirm_password = htmlspecialchars($_POST['confirm_password']);
         $terms_condition = isset($_POST['terms_condition']) ? $_POST['terms_condition'] : '';
 
-        if ($first_name == '') {
-            $first_name_error = "First name is required.";
-        } else if (!ctype_alnum($first_name)) {
-            $first_name_error = "First name should be alphanumeric.";
-        } else {
-            $first_name_error = "";
+        $validation->string(array('field'=>'first_name', 'value'=>$first_name), array('required'=>'First name is required.'));
+
+        if ($first_name != '' && !ctype_alnum($first_name)) {
+            $validation->setError('first_name', 'First name should be alphanumeric.');
         }
 
-        if ($last_name == '') {
-            $last_name_error = "Last name is required.";
-        } else if (!ctype_alnum($last_name)) {
-            $last_name_error = "Last name should be alphanumeric.";
-        } else {
-            $last_name_error = "";
+        $validation->string(array('field'=>'last_name', 'value'=>$last_name), array('required'=>'Last name is required.'));
+
+        $validation->string(array('field'=>'gender', 'value'=>$gender), array('required'=>'Gender is required.'));
+
+        $validation->email(array('required' => true, 'field'=>'email', 'value'=>$email), array('required'=>'Email is required.', 'invalid'=>'Please enter valid email.'));
+
+        $validation->phone(array('required' => true, 'field'=>'phone', 'value'=>$phone), array('required'=>'Phone number is required.', 'invalid'=>'Please enter valid phone number.'));
+
+        $validation->string(array('field'=>'password', 'value'=>$password, 'min'=>5), array('required'=>'Password is required.', 'min'=>'Password should have minimum 5 characters.'));
+
+        $validation->string(array('field'=>'confirm_password', 'value'=>$confirm_password), array('required'=>'Confirm password is required.'));
+
+        if ($password != $confirm_password && $confirm_password != '') {
+            $validation->setError('confirm_password', 'Password and Confirm password should be same.');
         }
 
-        if ($gender != 'Male' && $gender != 'Female') {
-            $gender_error = "Please select gender.";
-        } else {
-            $gender_error = "";
-        }
+        $validation->string(array('field'=>'terms_condition', 'value'=>$terms_condition), array('required'=>'Terms and condition is required.'));
 
-        if ($email == '') {
-            $email_error = "Email is required.";
-        } else if(!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)){
-            $email_error = "You do not entered valid email.";
-        } else {
-            $email_error = "";
-        }
+        $validation_errors = $validation->getErrors();
 
-        if ($phone == '') {
-            $phone_error = "Phone number is required.";
-        } else if (!is_numeric($phone)) {
-            $phone_error = "Numbers only.";
-        } else {
-            $phone_error = "";
-        }
+        //echo "<pre>"; print_r($validation_errors);
 
-        if ($password == '') {
-            $password_error = "Password is required.";
-        } else if (strlen($password) < 5) {
-            $password_error = "Password length should be minimum 5.";
-        } else {
-            $password_error = "";
-        }
-
-        if ($confirm_password == '') {
-            $confirm_password_error = "Confirm password is required.";
-        } else if ($password != $confirm_password) {
-            $confirm_password_error = "Password and Confirm password should be same.";
-        } else {
-            $confirm_password_error = "";
-        }
-
-        if ($terms_condition == '') {
-            $terms_condition_error = "Please select terms and condition.";
-        } else {
-            $terms_condition_error = "";
-        }
-
-        if ($first_name_error == '' && $last_name_error == '' && $gender_error == '' && $email_error == '' && $phone_error == '' && $password_error == '' && $confirm_password_error == '' && $terms_condition_error == '') {
+        if ($validation->isValid()) {
             try{
                 $sql = "INSERT INTO registration (first_name, last_name, gender, email, phone, password, terms_condition) VALUES (:first_name, :last_name, :gender, :email, :phone, :enc_password, :terms_condition)";
 

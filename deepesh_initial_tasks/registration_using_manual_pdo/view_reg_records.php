@@ -17,8 +17,6 @@ if (isset($_REQUEST['edit_id']) && $_REQUEST['edit_id'] != '') {
 
 $first_name = $last_name = $gender = $email = $phone = $terms_condition = "";
 
-$first_name_error = $last_name_error = $gender_error = $email_error = $phone_error = $terms_condition_error = "";
-
 //view register records
 if (isset($_REQUEST['view_reg_records']) && $_REQUEST['view_reg_records'] == true) {
     $data = array();
@@ -86,51 +84,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $phone = htmlspecialchars($_POST['phone']);
         $terms_condition = isset($_POST['terms_condition']) ? $_POST['terms_condition'] : '';
 
-        if ($first_name == '') {
-            $first_name_error = "First name is required.";
-        } else if (!ctype_alnum($first_name)) {
-            $first_name_error = "First name should be alphanumeric.";
-        } else {
-            $first_name_error = "";
+        $validation->string(array('field'=>'first_name', 'value'=>$first_name), array('required'=>'First name is required.'));
+
+        if ($first_name != '' && !ctype_alnum($first_name)) {
+            $validation->setError('first_name', 'First name should be alphanumeric.');
         }
 
-        if ($last_name == '') {
-            $last_name_error = "Last name is required.";
-        } else if (!ctype_alnum($last_name)) {
-            $last_name_error = "Last name should be alphanumeric.";
-        } else {
-            $last_name_error = "";
-        }
+        $validation->string(array('field'=>'last_name', 'value'=>$last_name), array('required'=>'Last name is required.'));
 
-        if ($gender != 'Male' && $gender != 'Female') {
-            $gender_error = "Please select gender.";
-        } else {
-            $gender_error = "";
-        }
+        $validation->string(array('field'=>'gender', 'value'=>$gender), array('required'=>'Gender is required.'));
 
-        if ($email == '') {
-            $email_error = "Email is required.";
-        } else if(!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)){
-            $email_error = "You do not entered valid email.";
-        } else {
-            $email_error = "";
-        }
+        $validation->email(array('required' => true, 'field'=>'email', 'value'=>$email), array('required'=>'Email is required.', 'invalid'=>'Please enter valid email.'));
 
-        if ($phone == '') {
-            $phone_error = "Phone number is required.";
-        } else if (!is_numeric($phone)) {
-            $phone_error = "Numbers only.";
-        } else {
-            $phone_error = "";
-        }
+        $validation->phone(array('required' => true, 'field'=>'phone', 'value'=>$phone), array('required'=>'Phone number is required.', 'invalid'=>'Please enter valid phone number.'));
 
-        if ($terms_condition == '') {
-            $terms_condition_error = "Please select terms and condition.";
-        } else {
-            $terms_condition_error = "";
-        }
+        $validation->string(array('field'=>'terms_condition', 'value'=>$terms_condition), array('required'=>'Terms and condition is required.'));
 
-        if ($first_name_error == '' && $last_name_error == '' && $gender_error == '' && $email_error == '' && $phone_error == '' && $terms_condition_error == '') {
+        $validation_errors = $validation->getErrors();
+
+        if ($validation->isValid()) {
             try {
                 date_default_timezone_set('Asia/Calcutta');
                 $updated_at = date('Y-m-d H:i:s');
