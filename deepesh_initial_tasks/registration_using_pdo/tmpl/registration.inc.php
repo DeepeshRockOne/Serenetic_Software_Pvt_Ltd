@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?php echo (isset($email)) ? $email : ''; ?>">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?php echo $email; ?>">
                     <?php if (isset($validation_errors['email'])) { ?>
                         <div class="my-4">
                             <span class="alert alert-danger my-2"><?php echo $validation_errors['email']; ?></span>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number" value="<?php echo (isset($phone)) ? $phone : ''; ?>">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number" value="<?php echo $phone; ?>">
                     <?php if (isset($validation_errors['phone'])) { ?>
                         <div class="my-4">
                             <span class="alert alert-danger my-2"><?php echo $validation_errors['phone']; ?></span>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo (isset($password)) ? $password : ''; ?>">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="<?php echo $password; ?>">
                     <?php if (isset($validation_errors['password'])) { ?>
                         <div class="my-4">
                             <span class="alert alert-danger my-2"><?php echo $validation_errors['password']; ?></span>

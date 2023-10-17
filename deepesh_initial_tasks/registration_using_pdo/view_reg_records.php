@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if ($validation->isValid()) {
             //date_default_timezone_set('Asia/Calcutta');
+            //$updated_at = date('Y-m-d H:i:s');
             $updated_at = 'msqlfunc_NOW()';
 
             $table = "registration";
