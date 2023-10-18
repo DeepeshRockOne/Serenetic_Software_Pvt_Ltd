@@ -16,14 +16,16 @@
 
             <div class="record_update_success"></div>
 
+            <div class="record_not_found"></div>
+
             <?php
-                if (isset($_GET['record_not_found']) && $_GET['record_not_found'] == true) {
+                /*if (isset($_GET['record_not_found']) && $_GET['record_not_found'] == true) {
             ?>
                 <div class="my-4 text-center record_not_found">
                     <span class="alert alert-danger">Record not found</span>
                 </div>
             <?php
-                }
+                }*/
             ?>
             <table class="table table-striped" id="reg_records_table" border="1">
                 <thead>
@@ -154,8 +156,9 @@
                             clicked_td.closest('tr').remove();
                             var tableRowCount = $('#reg_records_table').find('tr').length - 1;
 
-                            if ($('.record_not_found').length > 0) {
-                                $('.record_not_found').remove();
+                            $('.record_not_found').html('');
+                            if ($('.record_not_found').hasClass("my-4 text-center")) {
+                                $('.record_not_found').removeClass("my-4 text-center");
                             }
 
                             if ($('.registration_success').length > 0) {
@@ -171,7 +174,11 @@
                             $('.record_deleted_success').html('<span class="alert alert-success">Record deleted Successfully</span>');
 
                             if (tableRowCount == 0) {
-                                $('.view_reg_records')[0].click();
+                                $('#reg_records_table tbody').empty();
+
+                                var table_body_con = '<tr class="text-center" colspan="9">There is no records.<tr/>';
+
+                                $('#reg_records_table tbody').html(table_body_con);
                             }
                         }
                         
@@ -180,7 +187,9 @@
                             if ($('.record_deleted_success').hasClass("my-4 text-center")) {
                                 $('.record_deleted_success').removeClass("my-4 text-center");
                             }
-                            window.location = 'view_reg_records.php?record_not_found=true';
+
+                            $('.record_not_found').addClass("my-4 text-center");
+                            $('.record_not_found').html('<span class="alert alert-success">Record not found</span>');
                         }
                     },
                     error: function(error) {
@@ -190,6 +199,7 @@
             }
         });
 
+        //edit registered record
         $("#reg_records_table").on('click', '.edit_reg_record', function(e){
             var edit_id = $(this).attr('data-editId');
 
@@ -199,7 +209,7 @@
                 type: 'GET',
                 data: {'edit_id':edit_id},
                 cache: false,
-                success:function(res){
+                success:function(res){                    
                     if (Object.keys(res).length > 0) {
                         $('#modal_edit_reg').modal('show');
                         $('.modal_edit_reg_title').html('Edit Registered Record');
@@ -224,12 +234,21 @@
                         $('#hidden_update_id').val(res[0].id);
                     }
                     
-                    if (res.record_not_found) {
+                    if (res[0].record_not_found) {
+                        $('#modal_edit_reg').modal('hide');
+
                         $('.record_update_success').html('');
                         if ($('.record_update_success').hasClass("my-4 text-center")) {
                             $('.record_update_success').removeClass("my-4 text-center");
                         }
-                        window.location = 'view_reg_records.php?record_not_found=true';
+
+                        $('.record_deleted_success').html('');
+                        if ($('.record_deleted_success').hasClass("my-4 text-center")) {
+                            $('.record_deleted_success').removeClass("my-4 text-center");
+                        }
+
+                        $('.record_not_found').addClass("my-4 text-center");
+                        $('.record_not_found').html('<span class="alert alert-success">Record not found</span>');
                     }
                 },
                 error: function(error) {
