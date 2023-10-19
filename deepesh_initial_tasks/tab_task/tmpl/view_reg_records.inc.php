@@ -209,7 +209,8 @@
                 type: 'GET',
                 data: {'edit_id':edit_id},
                 cache: false,
-                success:function(res){                    
+                success:function(res){    
+
                     if (!res.record_not_found && Object.keys(res).length > 0) {
                         $('#modal_edit_reg').modal('show');
                         $('.modal_edit_reg_title').html('Edit Registered Record');
@@ -233,7 +234,7 @@
 
                         $('#hidden_update_id').val(res[0].id);
                     }
-                    
+
                     if (res.record_not_found) {
                         $('#modal_edit_reg').modal('hide');
 
