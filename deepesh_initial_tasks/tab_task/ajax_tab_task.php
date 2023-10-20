@@ -4,6 +4,8 @@ header("Content-type:application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['tab_submit']) && $_POST['tab_submit']) {
+        $tab_focus = array();
+
         $first_name = htmlspecialchars($_POST['first_name']);
         $last_name = htmlspecialchars($_POST['last_name']);
         $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
@@ -13,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $enc_password = md5($password);
         $confirm_password = htmlspecialchars($_POST['confirm_password']);
         $terms_condition = isset($_POST['terms_condition']) ? $_POST['terms_condition'] : '';
-
 
         $validation->string(array('field'=>'first_name', 'value'=>$first_name), array('required'=>'First name is required.'));
 
@@ -36,6 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $validation->string(array('field'=>'terms_condition', 'value'=>$terms_condition), array('required'=>'Terms and condition is required.'));
 
         $validation_errors = $validation->getErrors();
+
+        if (!empty($validation_errors)) {
+            foreach ($validation_errors as $field => $message) {
+                if (empty($tab_focus) && ($field == "first_name" || $field == "last_name")) {
+                    $tab_focus["tab_focus"] = 1;
+                }else if (empty($tab_focus) && ($field == "gender" || $field == "email")) {
+                    $tab_focus["tab_focus"] = 2;
+                }else if (empty($tab_focus) && ($field == "password" || $field == "confirm_password")) {
+                    $tab_focus["tab_focus"] = 3;
+                }else if (empty($tab_focus) && ($field == "phone" || $field == "terms_condition")) {
+                    $tab_focus["tab_focus"] = 4;
+                }
+            }
+
+            $validation_errors['tab_focus'] = $tab_focus;
+        }
 
         if ($validation->isValid()) {
             $table = "registration";

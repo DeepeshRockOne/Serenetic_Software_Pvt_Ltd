@@ -124,50 +124,24 @@
                 cache: false,
                 success:function(res){
                     var error_field = [];
-                    var tab_number_to_focus = [];
+                    var tab_number_to_focus = '';
 
                     $('.validation_err').html('');
 
                     if (!$.isEmptyObject(res)) {
+
+                        $.each(res.tab_focus, function(i, tabFcus){
+                            tab_number_to_focus = tabFcus;
+                        });
+
                         $.each(res, function(field, message){
                             var error_tab_id = matches = tab_number = '';
-                            if (field != '') {
+
+                            if (field != '' && field != 'tab_focus') {
                                 error_field.push(field);
 
                                 $('#'+field+'_error').addClass('my-4');
                                 $('#'+field+'_error').html('<span class="alert alert-danger my-2" id="'+field+'_error_message">'+message+'</span>');
-
-                                if ($.isEmptyObject(tab_number_to_focus) && (field == 'first_name' || field == 'last_name')) {
-                                    error_tab_id = $('#'+field).closest('div[id^="tab"]').attr('id');
-                                    matches = error_tab_id.match(/(tab\S)/g);
-
-                                    tab_number = matches[0].split('tab');
-                                    tab_number_to_focus.push(tab_number[1]);
-                                } else if ($.isEmptyObject(tab_number_to_focus) && (field == 'gender' || field == 'email')) {
-                                    if (field == 'gender') {
-                                        error_tab_id = $('#gender_male').closest('div[id^="tab"]').attr('id');
-                                    } else {
-                                        error_tab_id = $('#'+field).closest('div[id^="tab"]').attr('id');
-                                    }
-                                    matches = error_tab_id.match(/(tab\S)/g);
-
-                                    tab_number = matches[0].split('tab');
-                                    tab_number_to_focus.push(tab_number[1]);
-                                } else if ($.isEmptyObject(tab_number_to_focus) && (field == 'password' || field == 'confirm_password')) {
-                                    error_tab_id = $('#'+field).closest('div[id^="tab"]').attr('id');
-                                    matches = error_tab_id.match(/(tab\S)/g);
-
-                                    tab_number = matches[0].split('tab');
-                                    tab_number_to_focus.push(tab_number[1]);
-                                } else if ($.isEmptyObject(tab_number_to_focus) && (field == 'phone' || field == 'terms_condition')) {
-                                    error_tab_id = $('#'+field).closest('div[id^="tab"]').attr('id');
-                                    matches = error_tab_id.match(/(tab\S)/g);
-
-                                    tab_number = matches[0].split('tab');
-                                    tab_number_to_focus.push(tab_number[1]);
-                                }
-                            } else {
-                                tab_number_to_focus = [];
                             }
                         });
 
@@ -176,11 +150,9 @@
                         }
                     }
 
-                    if (!$.isEmptyObject(tab_number_to_focus)) {
-                        tab_number_to_focus = tab_number_to_focus[0];
+                    if (tab_number_to_focus != '') {
+                        $('#myTabs a[href="#tab'+tab_number_to_focus+'"]').tab('show');
                     }
-
-                    $('#myTabs a[href="#tab'+tab_number_to_focus+'"]').tab('show');
 
                     var field_array = ['first_name', 'last_name', 'gender', 'email', 'phone', 'password', 'confirm_password', 'terms_condition'];
                     if (!$.isEmptyObject(error_field)) {
