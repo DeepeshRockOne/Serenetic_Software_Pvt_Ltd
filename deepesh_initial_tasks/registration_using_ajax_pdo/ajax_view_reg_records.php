@@ -94,8 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             echo json_encode(array('update_success'=>true));
             exit;
-
-            //header("location:view_reg_records.php?view_reg_records=true&record_update_success=true");
         } else {
             echo json_encode($validation_errors);
             exit;

@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo "tab_task.php"; ?>">Tab Task</a>
+					<a class="nav-link" href="<?php echo "tab_task.php"; ?>">Tab Form</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="view_reg_records.php">View Reg Records</a>
