@@ -16,45 +16,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $confirm_password = htmlspecialchars($_POST['confirm_password']);
         $terms_condition = isset($_POST['terms_condition']) ? $_POST['terms_condition'] : '';
 
-        $validation->string(array('field'=>'first_name', 'value'=>$first_name), array('required'=>'First name is required.'));
+        $validation_1 = new Validation();
+        $validation_2 = new Validation();
+        $validation_3 = new Validation();
+        $validation_4 = new Validation();
+        $validation_errors = array();
 
-        $validation->string(array('field'=>'last_name', 'value'=>$last_name), array('required'=>'Last name is required.'));
+        $validation_1->string(array('field'=>'first_name', 'value'=>$first_name), array('required'=>'First name is required.'));
 
-        $validation->string(array('field'=>'gender', 'value'=>$gender), array('required'=>'Gender is required.'));
+        $validation_1->string(array('field'=>'last_name', 'value'=>$last_name), array('required'=>'Last name is required.'));
 
-        $validation->email(array('required' => true, 'field'=>'email', 'value'=>$email), array('required'=>'Email is required.', 'invalid'=>'Please enter valid email.'));
+        $validation_2->string(array('field'=>'gender', 'value'=>$gender), array('required'=>'Gender is required.'));
 
-        $validation->string(array('field'=>'password', 'value'=>$password, 'min'=>5), array('required'=>'Password is required.', 'min'=>'Password should have minimum 5 characters.'));
+        $validation_2->email(array('required' => true, 'field'=>'email', 'value'=>$email), array('required'=>'Email is required.', 'invalid'=>'Please enter valid email.'));
 
-        $validation->string(array('field'=>'confirm_password', 'value'=>$confirm_password), array('required'=>'Confirm password is required.'));
+        $validation_3->string(array('field'=>'password', 'value'=>$password, 'min'=>5), array('required'=>'Password is required.', 'min'=>'Password should have minimum 5 characters.'));
+
+        $validation_3->string(array('field'=>'confirm_password', 'value'=>$confirm_password), array('required'=>'Confirm password is required.'));
 
         if ($password != $confirm_password && $confirm_password != '') {
-            $validation->setError('confirm_password', 'Password and Confirm password should be same.');
+            $validation_3->setError('confirm_password', 'Password and Confirm password should be same.');
         }
 
-        $validation->phone(array('required' => true, 'field'=>'phone', 'value'=>$phone), array('required'=>'Phone number is required.', 'invalid'=>'Please enter valid phone number.'));
+        $validation_4->phone(array('required' => true, 'field'=>'phone', 'value'=>$phone), array('required'=>'Phone number is required.', 'invalid'=>'Please enter valid phone number.'));
 
-        $validation->string(array('field'=>'terms_condition', 'value'=>$terms_condition), array('required'=>'Terms and condition is required.'));
+        $validation_4->string(array('field'=>'terms_condition', 'value'=>$terms_condition), array('required'=>'Terms and condition is required.'));
 
-        $validation_errors = $validation->getErrors();
+        $validation_errors_1 = $validation_1->getErrors();
+        $validation_errors_2 = $validation_2->getErrors();
+        $validation_errors_3 = $validation_3->getErrors();
+        $validation_errors_4 = $validation_4->getErrors();
+
+        $validation_errors = array_merge($validation_errors_1, $validation_errors_2, $validation_errors_3, $validation_errors_4);
+
+        if (empty($tab_focus) && !$validation_1->isValid()) {
+            $tab_focus["tab_focus"] = 1;
+        } else if (empty($tab_focus) && !$validation_2->isValid()) {
+            $tab_focus["tab_focus"] = 2;
+        } else if (empty($tab_focus) && !$validation_3->isValid()) {
+            $tab_focus["tab_focus"] = 3;
+        } else if (empty($tab_focus) && !$validation_4->isValid()) {
+            $tab_focus["tab_focus"] = 4;
+        }
 
         if (!empty($validation_errors)) {
-            foreach ($validation_errors as $field => $message) {
-                if (empty($tab_focus) && ($field == "first_name" || $field == "last_name")) {
-                    $tab_focus["tab_focus"] = 1;
-                }else if (empty($tab_focus) && ($field == "gender" || $field == "email")) {
-                    $tab_focus["tab_focus"] = 2;
-                }else if (empty($tab_focus) && ($field == "password" || $field == "confirm_password")) {
-                    $tab_focus["tab_focus"] = 3;
-                }else if (empty($tab_focus) && ($field == "phone" || $field == "terms_condition")) {
-                    $tab_focus["tab_focus"] = 4;
-                }
-            }
-
             $validation_errors['tab_focus'] = $tab_focus;
         }
 
-        if ($validation->isValid()) {
+        if ($validation_1->isValid() && $validation_2->isValid() && $validation_3->isValid() && $validation_4->isValid()) {
             $table = "registration";
 
             $params = array(
