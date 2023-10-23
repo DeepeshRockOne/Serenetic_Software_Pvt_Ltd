@@ -1,5 +1,0 @@
-{
-    "require": {
-        "telnyx/telnyx-php": "^2.7"
-    }
-}

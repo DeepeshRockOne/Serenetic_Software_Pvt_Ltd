@@ -1,6 +1,0 @@
-.jshintrc
-.project
-.sass-cache
-*.rb
-.DS_Store
-node_modules
