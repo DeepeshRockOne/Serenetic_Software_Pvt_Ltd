@@ -1,0 +1,383 @@
+# This pipeline is for tpa, benefitsportal.com, alliedtpa project
+image: php:8.2
+
+pipelines:
+  branches:
+   benefitsportal_master:
+    - step:
+        name: Deploy to benefitsportal_master
+        deployment: benefitsportal_master
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "BENEFITSPORTAL_HOST="$BENEFITSPORTAL_HOST"" >> .env
+          - echo "BENEFITSPORTAL_SALVASEN_HOST="$BENEFITSPORTAL_SALVASEN_HOST"" >> .env
+          - echo "BENEFITSPORTAL_COMMON_CUSTOMER_DIR="$BENEFITSPORTAL_COMMON_CUSTOMER_DIR"" >> .env
+          - echo "BENEFITSPORTAL_SITE_ENV="$BENEFITSPORTAL_SITE_ENV"" >> .env
+          - echo "BENEFITSPORTAL_DBSERVER="$BENEFITSPORTAL_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_USERNAME="$BENEFITSPORTAL_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_PASSWORD="$BENEFITSPORTAL_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_READ_DBSERVER="$BENEFITSPORTAL_READ_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_READ_USERNAME="$BENEFITSPORTAL_READ_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_READ_PASSWORD="$BENEFITSPORTAL_READ_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_DATABASENAME="$BENEFITSPORTAL_DATABASENAME"" >> .env
+          - echo "BENEFITSPORTAL_LOG_DB="$BENEFITSPORTAL_LOG_DB"" >> .env
+          - echo "BENEFITSPORTAL_EMAILER_DB="$BENEFITSPORTAL_EMAILER_DB"" >> .env
+          - echo "BENEFITSPORTAL_REPORT_DB="$BENEFITSPORTAL_REPORT_DB"" >> .env
+          - echo "BENEFITSPORTAL_LIVE_CHAT_DB="$BENEFITSPORTAL_LIVE_CHAT_DB"" >> .env
+          
+          - echo "BENEFITSPORTAL_CREDIT_CARD_ENC_KEY="$BENEFITSPORTAL_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "BENEFITSPORTAL_SENDGRID_API_KEY="$BENEFITSPORTAL_SENDGRID_API_KEY"" >> .env
+          - echo "BENEFITSPORTAL_USPS_USER_ID="$BENEFITSPORTAL_USPS_USER_ID"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_URL="$BENEFITSPORTAL_REDIS_URL"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_PORT="$BENEFITSPORTAL_REDIS_PORT"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_NAME="$BENEFITSPORTAL_S3_BUCKET_NAME"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_URL="$BENEFITSPORTAL_S3_BUCKET_URL"" >> .env
+          - echo "BENEFITSPORTAL_S3_KEY="$BENEFITSPORTAL_S3_KEY"" >> .env
+          - echo "BENEFITSPORTAL_S3_SECRET="$BENEFITSPORTAL_S3_SECRET"" >> .env
+          - echo "BENEFITSPORTAL_S3_REGION="$BENEFITSPORTAL_S3_REGION"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/git/env/benefitsportal_master/
+          - git remote add production root@13.56.6.252:/root/git/benefitsportal_master.git
+          - git fetch --unshallow
+          - git push production
+   benefitsportal_stag:
+    - step:
+        name: Deploy to benefitsportal_stag
+        deployment: benefitsportal_stag
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "BENEFITSPORTAL_HOST="$BENEFITSPORTAL_HOST"" >> .env
+          - echo "BENEFITSPORTAL_SALVASEN_HOST="$BENEFITSPORTAL_SALVASEN_HOST"" >> .env
+          - echo "BENEFITSPORTAL_COMMON_CUSTOMER_DIR="$BENEFITSPORTAL_COMMON_CUSTOMER_DIR"" >> .env
+          - echo "BENEFITSPORTAL_SITE_ENV="$BENEFITSPORTAL_SITE_ENV"" >> .env
+          - echo "BENEFITSPORTAL_DBSERVER="$BENEFITSPORTAL_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_USERNAME="$BENEFITSPORTAL_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_PASSWORD="$BENEFITSPORTAL_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_READ_DBSERVER="$BENEFITSPORTAL_READ_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_READ_USERNAME="$BENEFITSPORTAL_READ_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_READ_PASSWORD="$BENEFITSPORTAL_READ_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_DATABASENAME="$BENEFITSPORTAL_DATABASENAME"" >> .env
+          - echo "BENEFITSPORTAL_LOG_DB="$BENEFITSPORTAL_LOG_DB"" >> .env
+          - echo "BENEFITSPORTAL_EMAILER_DB="$BENEFITSPORTAL_EMAILER_DB"" >> .env
+          - echo "BENEFITSPORTAL_REPORT_DB="$BENEFITSPORTAL_REPORT_DB"" >> .env
+          - echo "BENEFITSPORTAL_LIVE_CHAT_DB="$BENEFITSPORTAL_LIVE_CHAT_DB"" >> .env
+          
+          - echo "BENEFITSPORTAL_CREDIT_CARD_ENC_KEY="$BENEFITSPORTAL_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "BENEFITSPORTAL_SENDGRID_API_KEY="$BENEFITSPORTAL_SENDGRID_API_KEY"" >> .env
+          - echo "BENEFITSPORTAL_USPS_USER_ID="$BENEFITSPORTAL_USPS_USER_ID"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_URL="$BENEFITSPORTAL_REDIS_URL"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_PORT="$BENEFITSPORTAL_REDIS_PORT"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_NAME="$BENEFITSPORTAL_S3_BUCKET_NAME"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_URL="$BENEFITSPORTAL_S3_BUCKET_URL"" >> .env
+          - echo "BENEFITSPORTAL_S3_KEY="$BENEFITSPORTAL_S3_KEY"" >> .env
+          - echo "BENEFITSPORTAL_S3_SECRET="$BENEFITSPORTAL_S3_SECRET"" >> .env
+          - echo "BENEFITSPORTAL_S3_REGION="$BENEFITSPORTAL_S3_REGION"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/staggit/env/benefitsportal_stag/
+          - git remote add production root@13.56.6.252:/root/staggit/benefitsportal_stag.git
+          - git fetch --unshallow
+          - git push production
+   benefitsportal_dev:
+    - step:
+        name: Deploy to benefitsportal_dev
+        deployment: benefitsportal_dev
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "BENEFITSPORTAL_HOST="$BENEFITSPORTAL_HOST"" >> .env
+          - echo "BENEFITSPORTAL_SALVASEN_HOST="$BENEFITSPORTAL_SALVASEN_HOST"" >> .env
+          - echo "BENEFITSPORTAL_COMMON_CUSTOMER_DIR="$BENEFITSPORTAL_COMMON_CUSTOMER_DIR"" >> .env
+          - echo "BENEFITSPORTAL_SITE_ENV="$BENEFITSPORTAL_SITE_ENV"" >> .env
+          - echo "BENEFITSPORTAL_DBSERVER="$BENEFITSPORTAL_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_USERNAME="$BENEFITSPORTAL_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_PASSWORD="$BENEFITSPORTAL_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_READ_DBSERVER="$BENEFITSPORTAL_READ_DBSERVER"" >> .env
+          - echo "BENEFITSPORTAL_READ_USERNAME="$BENEFITSPORTAL_READ_USERNAME"" >> .env
+          - echo "BENEFITSPORTAL_READ_PASSWORD="$BENEFITSPORTAL_READ_PASSWORD"" >> .env
+          - echo "BENEFITSPORTAL_DATABASENAME="$BENEFITSPORTAL_DATABASENAME"" >> .env
+          - echo "BENEFITSPORTAL_LOG_DB="$BENEFITSPORTAL_LOG_DB"" >> .env
+          - echo "BENEFITSPORTAL_EMAILER_DB="$BENEFITSPORTAL_EMAILER_DB"" >> .env
+          - echo "BENEFITSPORTAL_REPORT_DB="$BENEFITSPORTAL_REPORT_DB"" >> .env
+          - echo "BENEFITSPORTAL_LIVE_CHAT_DB="$BENEFITSPORTAL_LIVE_CHAT_DB"" >> .env
+          
+          - echo "BENEFITSPORTAL_CREDIT_CARD_ENC_KEY="$BENEFITSPORTAL_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "BENEFITSPORTAL_SENDGRID_API_KEY="$BENEFITSPORTAL_SENDGRID_API_KEY"" >> .env
+          - echo "BENEFITSPORTAL_USPS_USER_ID="$BENEFITSPORTAL_USPS_USER_ID"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_URL="$BENEFITSPORTAL_REDIS_URL"" >> .env
+          - echo "BENEFITSPORTAL_REDIS_PORT="$BENEFITSPORTAL_REDIS_PORT"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_NAME="$BENEFITSPORTAL_S3_BUCKET_NAME"" >> .env
+          - echo "BENEFITSPORTAL_S3_BUCKET_URL="$BENEFITSPORTAL_S3_BUCKET_URL"" >> .env
+          - echo "BENEFITSPORTAL_S3_KEY="$BENEFITSPORTAL_S3_KEY"" >> .env
+          - echo "BENEFITSPORTAL_S3_SECRET="$BENEFITSPORTAL_S3_SECRET"" >> .env
+          - echo "BENEFITSPORTAL_S3_REGION="$BENEFITSPORTAL_S3_REGION"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/devgit/env/benefitsportal_dev/
+          - git remote add production root@13.56.6.252:/root/devgit/benefitsportal_dev.git
+          - git fetch --unshallow
+          - git push production
+   salvasen_master:
+    - step:
+        name: Deploy to salvasen_master
+        deployment: salvasen_master
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "TPA_HOST="$TPA_HOST"" >> .env
+          - echo "TPA_COMMON_CUSTOMER_HOST="$TPA_COMMON_CUSTOMER_HOST"" >> .env
+          - echo "TPA_SITE_ENV="$TPA_SITE_ENV"" >> .env
+          - echo "TPA_DBSERVER="$TPA_DBSERVER"" >> .env
+          - echo "TPA_USERNAME="$TPA_USERNAME"" >> .env
+          - echo "TPA_PASSWORD="$TPA_PASSWORD"" >> .env
+          - echo "TPA_READ_DBSERVER="$TPA_READ_DBSERVER"" >> .env
+          - echo "TPA_READ_USERNAME="$TPA_READ_USERNAME"" >> .env
+          - echo "TPA_READ_PASSWORD="$TPA_READ_PASSWORD"" >> .env
+          - echo "TPA_DATABASENAME="$TPA_DATABASENAME"" >> .env
+          - echo "TPA_LOG_DB="$TPA_LOG_DB"" >> .env
+          - echo "TPA_EMAILER_DB="$TPA_EMAILER_DB"" >> .env
+          - echo "TPA_REPORT_DB="$TPA_REPORT_DB"" >> .env
+          - echo "TPA_LIVE_CHAT_DB="$TPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "TPA_CREDIT_CARD_ENC_KEY="$TPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "TPA_SENDGRID_API_KEY="$TPA_SENDGRID_API_KEY"" >> .env
+          - echo "TPA_USPS_USER_ID="$TPA_USPS_USER_ID"" >> .env
+          - echo "TPA_REDIS_URL="$TPA_REDIS_URL"" >> .env
+          - echo "TPA_REDIS_PORT="$TPA_REDIS_PORT"" >> .env
+          - echo "TPA_S3_BUCKET_NAME="$TPA_S3_BUCKET_NAME"" >> .env
+          - echo "TPA_S3_BUCKET_URL="$TPA_S3_BUCKET_URL"" >> .env
+          - echo "TPA_S3_KEY="$TPA_S3_KEY"" >> .env
+          - echo "TPA_S3_SECRET="$TPA_S3_SECRET"" >> .env
+          - echo "TPA_S3_REGION="$TPA_S3_REGION"" >> .env
+          - echo "TPA_API_TOKEN="$TPA_API_TOKEN"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/git/env/salvasen_master/
+          - git remote add production root@13.56.6.252:/root/git/salvasen_master.git
+          - git fetch --unshallow
+          - git push production
+   salvasen_stag:
+    - step:
+        name: Deploy to salvasen_stag
+        deployment: salvasen_stag
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "TPA_HOST="$TPA_HOST"" >> .env
+          - echo "TPA_COMMON_CUSTOMER_HOST="$TPA_COMMON_CUSTOMER_HOST"" >> .env
+          - echo "TPA_SITE_ENV="$TPA_SITE_ENV"" >> .env
+          - echo "TPA_DBSERVER="$TPA_DBSERVER"" >> .env
+          - echo "TPA_USERNAME="$TPA_USERNAME"" >> .env
+          - echo "TPA_PASSWORD="$TPA_PASSWORD"" >> .env
+          - echo "TPA_READ_DBSERVER="$TPA_READ_DBSERVER"" >> .env
+          - echo "TPA_READ_USERNAME="$TPA_READ_USERNAME"" >> .env
+          - echo "TPA_READ_PASSWORD="$TPA_READ_PASSWORD"" >> .env
+          - echo "TPA_DATABASENAME="$TPA_DATABASENAME"" >> .env
+          - echo "TPA_LOG_DB="$TPA_LOG_DB"" >> .env
+          - echo "TPA_EMAILER_DB="$TPA_EMAILER_DB"" >> .env
+          - echo "TPA_REPORT_DB="$TPA_REPORT_DB"" >> .env
+          - echo "TPA_LIVE_CHAT_DB="$TPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "TPA_CREDIT_CARD_ENC_KEY="$TPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "TPA_SENDGRID_API_KEY="$TPA_SENDGRID_API_KEY"" >> .env
+          - echo "TPA_USPS_USER_ID="$TPA_USPS_USER_ID"" >> .env
+          - echo "TPA_REDIS_URL="$TPA_REDIS_URL"" >> .env
+          - echo "TPA_REDIS_PORT="$TPA_REDIS_PORT"" >> .env
+          - echo "TPA_S3_BUCKET_NAME="$TPA_S3_BUCKET_NAME"" >> .env
+          - echo "TPA_S3_BUCKET_URL="$TPA_S3_BUCKET_URL"" >> .env
+          - echo "TPA_S3_KEY="$TPA_S3_KEY"" >> .env
+          - echo "TPA_S3_SECRET="$TPA_S3_SECRET"" >> .env
+          - echo "TPA_S3_REGION="$TPA_S3_REGION"" >> .env
+          - echo "TPA_API_TOKEN="$TPA_API_TOKEN"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/staggit/env/salvasen_stag/
+          - git remote add production root@13.56.6.252:/root/staggit/salvasen_stag.git
+          - git fetch --unshallow
+          - git push production
+   salvasen_dev:
+    - step:
+        name: Deploy to salvasen_dev
+        deployment: salvasen_dev
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          
+          - echo "TPA_HOST="$TPA_HOST"" >> .env
+          - echo "TPA_COMMON_CUSTOMER_HOST="$TPA_COMMON_CUSTOMER_HOST"" >> .env
+          - echo "TPA_SITE_ENV="$TPA_SITE_ENV"" >> .env
+          - echo "TPA_DBSERVER="$TPA_DBSERVER"" >> .env
+          - echo "TPA_USERNAME="$TPA_USERNAME"" >> .env
+          - echo "TPA_PASSWORD="$TPA_PASSWORD"" >> .env
+          - echo "TPA_READ_DBSERVER="$TPA_READ_DBSERVER"" >> .env
+          - echo "TPA_READ_USERNAME="$TPA_READ_USERNAME"" >> .env
+          - echo "TPA_READ_PASSWORD="$TPA_READ_PASSWORD"" >> .env
+          - echo "TPA_DATABASENAME="$TPA_DATABASENAME"" >> .env
+          - echo "TPA_LOG_DB="$TPA_LOG_DB"" >> .env
+          - echo "TPA_EMAILER_DB="$TPA_EMAILER_DB"" >> .env
+          - echo "TPA_REPORT_DB="$TPA_REPORT_DB"" >> .env
+          - echo "TPA_LIVE_CHAT_DB="$TPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "TPA_CREDIT_CARD_ENC_KEY="$TPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "TPA_SENDGRID_API_KEY="$TPA_SENDGRID_API_KEY"" >> .env
+          - echo "TPA_USPS_USER_ID="$TPA_USPS_USER_ID"" >> .env
+          - echo "TPA_REDIS_URL="$TPA_REDIS_URL"" >> .env
+          - echo "TPA_REDIS_PORT="$TPA_REDIS_PORT"" >> .env
+          - echo "TPA_S3_BUCKET_NAME="$TPA_S3_BUCKET_NAME"" >> .env
+          - echo "TPA_S3_BUCKET_URL="$TPA_S3_BUCKET_URL"" >> .env
+          - echo "TPA_S3_KEY="$TPA_S3_KEY"" >> .env
+          - echo "TPA_S3_SECRET="$TPA_S3_SECRET"" >> .env
+          - echo "TPA_S3_REGION="$TPA_S3_REGION"" >> .env
+          - echo "TPA_API_TOKEN="$TPA_API_TOKEN"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/devgit/env/salvasen_dev/
+          - git remote add production root@13.56.6.252:/root/devgit/salvasen_dev.git
+          - git fetch --unshallow
+          - git push production
+   alliedtpa_master:
+    - step:
+        name: Deploy to alliedtpa_master
+        deployment: alliedtpa_master
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          - echo "ALLIEDTPA_HOST="$ALLIEDTPA_HOST"" >> .env
+          - echo "ALLIEDTPA_SITE_ENV="$ALLIEDTPA_SITE_ENV"" >> .env
+          - echo "ALLIEDTPA_DBSERVER="$ALLIEDTPA_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_USERNAME="$ALLIEDTPA_USERNAME"" >> .env
+          - echo "ALLIEDTPA_PASSWORD="$ALLIEDTPA_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_READ_DBSERVER="$ALLIEDTPA_READ_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_READ_USERNAME="$ALLIEDTPA_READ_USERNAME"" >> .env
+          - echo "ALLIEDTPA_READ_PASSWORD="$ALLIEDTPA_READ_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_DATABASENAME="$ALLIEDTPA_DATABASENAME"" >> .env
+          - echo "ALLIEDTPA_LOG_DB="$ALLIEDTPA_LOG_DB"" >> .env
+          - echo "ALLIEDTPA_EMAILER_DB="$ALLIEDTPA_EMAILER_DB"" >> .env
+          - echo "ALLIEDTPA_REPORT_DB="$ALLIEDTPA_REPORT_DB"" >> .env
+          - echo "ALLIEDTPA_LIVE_CHAT_DB="$ALLIEDTPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "ALLIEDTPA_CREDIT_CARD_ENC_KEY="$ALLIEDTPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "ALLIEDTPA_SENDGRID_API_KEY="$ALLIEDTPA_SENDGRID_API_KEY"" >> .env
+          - echo "ALLIEDTPA_USPS_USER_ID="$ALLIEDTPA_USPS_USER_ID"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_NAME="$ALLIEDTPA_S3_BUCKET_NAME"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_URL="$ALLIEDTPA_S3_BUCKET_URL"" >> .env
+          - echo "ALLIEDTPA_S3_KEY="$ALLIEDTPA_S3_KEY"" >> .env
+          - echo "ALLIEDTPA_S3_SECRET="$ALLIEDTPA_S3_SECRET"" >> .env
+          - echo "ALLIEDTPA_S3_REGION="$ALLIEDTPA_S3_REGION"" >> .env
+          - echo "ALLIEDTPA_REDIS_URL="$ALLIEDTPA_REDIS_URL"" >> .env
+          - echo "ALLIEDTPA_REDIS_PORT="$ALLIEDTPA_REDIS_PORT"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/git/env/alliedtpa_master/
+          - git remote add production root@13.56.6.252:/root/git/alliedtpa_master.git
+          #- git fetch --unshallow
+          - git push production
+   alliedtpa_stag:
+    - step:
+        name: Deploy to alliedtpa_stag
+        deployment: alliedtpa_stag
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          - echo "ALLIEDTPA_HOST="$ALLIEDTPA_HOST"" >> .env
+          - echo "ALLIEDTPA_SITE_ENV="$ALLIEDTPA_SITE_ENV"" >> .env
+          - echo "ALLIEDTPA_DBSERVER="$ALLIEDTPA_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_USERNAME="$ALLIEDTPA_USERNAME"" >> .env
+          - echo "ALLIEDTPA_PASSWORD="$ALLIEDTPA_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_READ_DBSERVER="$ALLIEDTPA_READ_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_READ_USERNAME="$ALLIEDTPA_READ_USERNAME"" >> .env
+          - echo "ALLIEDTPA_READ_PASSWORD="$ALLIEDTPA_READ_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_DATABASENAME="$ALLIEDTPA_DATABASENAME"" >> .env
+          - echo "ALLIEDTPA_LOG_DB="$ALLIEDTPA_LOG_DB"" >> .env
+          - echo "ALLIEDTPA_EMAILER_DB="$ALLIEDTPA_EMAILER_DB"" >> .env
+          - echo "ALLIEDTPA_REPORT_DB="$ALLIEDTPA_REPORT_DB"" >> .env
+          - echo "ALLIEDTPA_LIVE_CHAT_DB="$ALLIEDTPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "ALLIEDTPA_CREDIT_CARD_ENC_KEY="$ALLIEDTPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "ALLIEDTPA_SENDGRID_API_KEY="$ALLIEDTPA_SENDGRID_API_KEY"" >> .env
+          - echo "ALLIEDTPA_USPS_USER_ID="$ALLIEDTPA_USPS_USER_ID"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_NAME="$ALLIEDTPA_S3_BUCKET_NAME"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_URL="$ALLIEDTPA_S3_BUCKET_URL"" >> .env
+          - echo "ALLIEDTPA_S3_KEY="$ALLIEDTPA_S3_KEY"" >> .env
+          - echo "ALLIEDTPA_S3_SECRET="$ALLIEDTPA_S3_SECRET"" >> .env
+          - echo "ALLIEDTPA_S3_REGION="$ALLIEDTPA_S3_REGION"" >> .env
+          - echo "ALLIEDTPA_REDIS_URL="$ALLIEDTPA_REDIS_URL"" >> .env
+          - echo "ALLIEDTPA_REDIS_PORT="$ALLIEDTPA_REDIS_PORT"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/staggit/env/alliedtpa_stag/
+          - git remote add production root@13.56.6.252:/root/staggit/alliedtpa_stag.git
+          #- git fetch --unshallow
+          - git push production
+   alliedtpa_dev:
+    - step:
+        name: Deploy to alliedtpa_dev
+        deployment: alliedtpa_dev
+        script:
+          - apt-get update && apt-get -qq install -y git openssh-client rsync
+          - ssh-keyscan -t rsa bitbucket.org
+          
+          - touch .env
+          - echo "ALLIEDTPA_HOST="$ALLIEDTPA_HOST"" >> .env
+          - echo "ALLIEDTPA_SITE_ENV="$ALLIEDTPA_SITE_ENV"" >> .env
+          - echo "ALLIEDTPA_DBSERVER="$ALLIEDTPA_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_USERNAME="$ALLIEDTPA_USERNAME"" >> .env
+          - echo "ALLIEDTPA_PASSWORD="$ALLIEDTPA_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_READ_DBSERVER="$ALLIEDTPA_READ_DBSERVER"" >> .env
+          - echo "ALLIEDTPA_READ_USERNAME="$ALLIEDTPA_READ_USERNAME"" >> .env
+          - echo "ALLIEDTPA_READ_PASSWORD="$ALLIEDTPA_READ_PASSWORD"" >> .env
+          - echo "ALLIEDTPA_DATABASENAME="$ALLIEDTPA_DATABASENAME"" >> .env
+          - echo "ALLIEDTPA_LOG_DB="$ALLIEDTPA_LOG_DB"" >> .env
+          - echo "ALLIEDTPA_EMAILER_DB="$ALLIEDTPA_EMAILER_DB"" >> .env
+          - echo "ALLIEDTPA_REPORT_DB="$ALLIEDTPA_REPORT_DB"" >> .env
+          - echo "ALLIEDTPA_LIVE_CHAT_DB="$ALLIEDTPA_LIVE_CHAT_DB"" >> .env
+          
+          - echo "ALLIEDTPA_CREDIT_CARD_ENC_KEY="$ALLIEDTPA_CREDIT_CARD_ENC_KEY"" >> .env
+          - echo "ALLIEDTPA_SENDGRID_API_KEY="$ALLIEDTPA_SENDGRID_API_KEY"" >> .env
+          - echo "ALLIEDTPA_USPS_USER_ID="$ALLIEDTPA_USPS_USER_ID"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_NAME="$ALLIEDTPA_S3_BUCKET_NAME"" >> .env
+          - echo "ALLIEDTPA_S3_BUCKET_URL="$ALLIEDTPA_S3_BUCKET_URL"" >> .env
+          - echo "ALLIEDTPA_S3_KEY="$ALLIEDTPA_S3_KEY"" >> .env
+          - echo "ALLIEDTPA_S3_SECRET="$ALLIEDTPA_S3_SECRET"" >> .env
+          - echo "ALLIEDTPA_S3_REGION="$ALLIEDTPA_S3_REGION"" >> .env
+          - echo "ALLIEDTPA_REDIS_URL="$ALLIEDTPA_REDIS_URL"" >> .env
+          - echo "ALLIEDTPA_REDIS_PORT="$ALLIEDTPA_REDIS_PORT"" >> .env
+          
+          - cat .env
+          
+          - rsync -avz .env root@13.56.6.252:/root/devgit/env/alliedtpa_dev/
+          - git remote add production root@13.56.6.252:/root/devgit/alliedtpa_dev.git
+          #- git fetch --unshallow
+          - git push production       

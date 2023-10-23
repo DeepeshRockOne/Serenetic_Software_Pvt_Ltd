@@ -1,0 +1,135 @@
+.ms-container {
+  width: 100%;
+  position: relative;
+}
+
+.ms-container:before {
+  content: "";
+  width: 30px;
+  height: 60px;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background: transparent url('../img/switch.png') no-repeat 50% 50%;
+  position: absolute;
+}
+
+.ms-container .ms-selectable,
+.ms-container .ms-selection {
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+}
+
+.ms-container .ms-selectable > a,
+.ms-container .ms-selection > a {
+  padding: 10px 12px;
+  display: block;
+  color: #5d5d5d;
+  font-weight: 500;
+  margin-top: 9px;
+}
+
+.ms-container .ms-selectable > a:hover,
+.ms-container .ms-selection > a:hover,
+.ms-container .ms-selectable > a:focus,
+.ms-container .ms-selection > a:focus {
+  background-color: #f8f8f8;
+}
+
+.ms-container:after {
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  min-height: 0;
+  visibility: hidden;
+}
+
+.ms-container .ms-selectable,
+.ms-container .ms-selection {
+  background: #fff;
+  color: #5d5d5d;
+  float: left;
+  width: calc(50% - 15px);
+  margin-top: 23px;
+  position: relative;
+}
+
+.ms-container .ms-selection {
+  float: right;
+}
+
+.ms-container .ms-list {
+  border-top: 0;
+  position: relative;
+  height: 105px;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.ms-container .ms-list.ms-focus {
+  outline: 0;
+  outline: thin dotted \9;
+}
+
+.ms-container ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+
+.ms-container .ms-optgroup-container {
+  width: 100%;
+}
+
+.ms-container .ms-optgroup-label {
+  margin: 0;
+  padding: 10px 12px;
+  cursor: pointer;
+  color: #5d5d5d;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection {
+  padding: 10px 12px;
+  color: #5d5d5d;
+  word-break: break-all;
+  font-size: 12px;
+}
+
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover {
+  cursor: pointer;
+  color: #5d5d5d;
+  text-decoration: none;
+  background-color: #f8f8f8;
+}
+
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled {
+  background-color: #f8f8f8;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+@media (max-width:540px) {
+  .ms-container .ms-selectable,
+  .ms-container .ms-selection {
+    width: 100%;
+  }
+
+  .ms-container .ms-selection {
+    margin-top: 70px;
+  }
+
+  .ms-container:before {
+    transform: rotate(90deg);
+    top: 9px;
+    background-size: 30px;
+    background-position-x: 47%;
+  }
+
+}

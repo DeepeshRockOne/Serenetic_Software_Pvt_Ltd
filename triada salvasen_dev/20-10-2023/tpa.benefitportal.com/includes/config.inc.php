@@ -1,0 +1,56 @@
+<?php
+include dirname(__DIR__) . "/includes/envFunction.php";
+
+setEnvVarriables();
+
+if(empty($_ENV['TPA_SITE_ENV'])){
+  echo "Configuration missing";
+  exit;
+}
+
+$SITE_ENV = $_ENV['TPA_SITE_ENV'];
+
+$DBSERVER = $_ENV['TPA_DBSERVER'];
+$USERNAME = $_ENV['TPA_USERNAME'];
+$PASSWORD = $_ENV['TPA_PASSWORD'];
+
+$DATABASENAME = $_ENV['TPA_DATABASENAME'];
+$LOG_DB = $_ENV['TPA_LOG_DB'];
+$EMAILER_DB = $_ENV['TPA_EMAILER_DB'];
+$REPORT_DB = $_ENV['TPA_REPORT_DB'];
+$LIVE_CHAT_DB = $_ENV['TPA_LIVE_CHAT_DB'];
+
+$RDBSERVER = $_ENV['TPA_READ_DBSERVER'];
+$RUSERNAME = $_ENV['TPA_READ_USERNAME'];
+$RPASSWORD = $_ENV['TPA_READ_PASSWORD'];
+
+$HOST = $_ENV['TPA_HOST'];
+$COMMON_CUSTOMER_HOST = $_ENV['TPA_COMMON_CUSTOMER_HOST'];
+$ADMIN_HOST = $HOST."/admin";
+$CUSTOMER_HOST = $COMMON_CUSTOMER_HOST."/member";
+$AGENT_HOST = $HOST."/agents";
+$GROUP_HOST = $HOST."/groups";
+$SHORT_URL_HOST = $HOST."/srt_url";
+$LIVE_CHAT_HOST = $HOST."/live_chat";
+
+// Credit card encryption key
+$CREDIT_CARD_ENC_KEY = $_ENV['TPA_CREDIT_CARD_ENC_KEY'];
+
+
+$SENDGRID_API_KEY = $_ENV['TPA_SENDGRID_API_KEY'];
+
+$USPS_USER_ID = $_ENV['TPA_USPS_USER_ID'];
+
+$S3_BUCKET_NAME = $_ENV['TPA_S3_BUCKET_NAME'];
+$S3_BUCKET_URL = $_ENV['TPA_S3_BUCKET_URL'];
+$S3_KEY = $_ENV['TPA_S3_KEY'];
+$S3_SECRET = $_ENV['TPA_S3_SECRET'];
+$S3_REGION = $_ENV['TPA_S3_REGION'];
+
+$REDIS_URL = $_ENV['TPA_REDIS_URL'];
+$REDIS_PORT = $_ENV['TPA_REDIS_PORT'];
+
+$API_TOKEN = $_ENV['TPA_API_TOKEN'];
+
+include (__DIR__) . "/config_variables.inc.php";
+?>

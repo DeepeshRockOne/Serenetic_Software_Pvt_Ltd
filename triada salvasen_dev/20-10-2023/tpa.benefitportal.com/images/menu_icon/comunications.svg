@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Communications-Nav-Group" transform="translate(0.000000, -2.000000)" fill="#FFFFFF">
+            <g id="Group-43" transform="translate(0.000000, 0.000000)">
+                <g id="Group" transform="translate(-0.000000, 2.000000)">
+                    <path d="M12.8048557,0 L1.62001461,0 C0.72542665,0 9.76996262e-15,0.725164384 9.76996262e-15,1.61975235 L9.76996262e-15,9.03400086 C9.76996262e-15,9.92858882 0.72542665,10.6540155 1.62001461,10.6540155 C1.62001461,10.6540155 5.57340627,10.6540155 8.77934096,10.6540155 L8.83756393,10.6553268 C8.83756393,10.8137352 8.83756393,14 8.83756393,14 C8.83756393,14 11.8087709,10.6629325 11.8166389,10.6540155 L11.8334239,10.6540155 C12.4363725,10.6540155 12.8048557,10.6540155 12.8048557,10.6540155 C13.6994436,10.6540155 14.424608,9.92858882 14.424608,9.03400086 L14.424608,1.61975235 C14.424608,0.725164384 13.6994436,0 12.8048557,0 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
